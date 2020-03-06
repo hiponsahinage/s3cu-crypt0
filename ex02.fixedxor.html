@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        var a = "1c0111001f010100061a024b53535009181c";
+        var b = "686974207468652062756c6c277320657965";
+        var c = "746865206b696420646f6e277420706c6179";
+
+        function xorPartnah(first, second) {
+            first = first.split("");
+            second = second.split("");
+            let a = [];
+            let b = [];
+            for (var i = 0; i < first.length; i += 2) {
+                a.push(first[i].concat(first[i + 1]));
+            }
+            for (var i = 0; i < second.length; i += 2) {
+                b.push(second[i].concat(second[i + 1]));
+            }
+            a = a.map(e => parseInt(e, 16).toString(2)).map(e => {
+                while (e.length < 8) {
+                    e = "0" + e;
+                }
+                return e;
+            }).reduce((a, b) => a.concat(b));
+            b = b.map(e => parseInt(e, 16).toString(2)).map(e => {
+                while (e.length < 8) {
+                    e = "0" + e;
+                }
+                return e;
+            }).reduce((a, b) => a.concat(b));
+            let xR = [];
+            let aR = [];
+            //XOR the strings
+            for (var i = 0; i < a.length; i++) {
+                xR.push(a[i] ^ b[i]);
+            }
+            xR = xR.join("");
+            for (var i = 0; i < xR.length; i += 8) {
+                aR.push(xR.slice(i, i + 8));
+            }
+            aR = aR.map(e => parseInt(e, 2).toString(16)).join("");
+            return aR;
+        }
+        console.log("r = " + xorPartnah(a, b));
+        console.log("c = " + c);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
